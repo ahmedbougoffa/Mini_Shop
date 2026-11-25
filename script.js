@@ -1,29 +1,28 @@
-
 const products = [
-    {
-        id: 1,
-        name: "Wireless Headphones",
-        category: "TECH",
-        price: 89
-    },
-    {
-        id: 2,
-        name: "Classic Watch",
-        category: "ACCESSORIES",
-        price: 65
-    },
-    {
-        id: 3,
-        name: "Everyday Backpack",
-        category: "LIFESTYLE",
-        price: 49
-    },
-    {
-        id: 4,
-        name: "Minimal Desk Lamp",
-        category: "HOME",
-        price: 35
-    }
+  {
+    id: 1,
+    name: "Wireless Headphones",
+    category: "TECH",
+    price: 89,
+  },
+  {
+    id: 2,
+    name: "Classic Watch",
+    category: "ACCESSORIES",
+    price: 65,
+  },
+  {
+    id: 3,
+    name: "Everyday Backpack",
+    category: "LIFESTYLE",
+    price: 49,
+  },
+  {
+    id: 4,
+    name: "Minimal Desk Lamp",
+    category: "HOME",
+    price: 35,
+  },
 ];
 
 let cart = JSON.parse(localStorage.getItem("minishop-cart")) || [];
@@ -62,31 +61,31 @@ const totalPriceElement = document.querySelector(".total-price");
 
 // Add product prices and buttons
 document.querySelectorAll(".product-card").forEach((card, index) => {
-    const product = products[index];
+  const product = products[index];
 
-    card.querySelector(".product-price").textContent =
-        `$${product.price.toFixed(2)}`;
+  card.querySelector(".product-price").textContent =
+    `$${product.price.toFixed(2)}`;
 
-    const button = document.createElement("button");
-    button.className = "add-cart-btn";
-    button.textContent = "Add to cart";
+  const button = document.createElement("button");
+  button.className = "add-cart-btn";
+  button.textContent = "Add to cart";
 
-    button.addEventListener("click", () => {
-        addToCart(product.id);
-    });
+  button.addEventListener("click", () => {
+    addToCart(product.id);
+  });
 
-    card.querySelector(".product-info").appendChild(button);
+  card.querySelector(".product-info").appendChild(button);
 });
 
 // Open and close cart
 function openCart() {
-    overlay.classList.add("open");
-    cartPanel.classList.add("open");
+  overlay.classList.add("open");
+  cartPanel.classList.add("open");
 }
 
 function closeCart() {
-    overlay.classList.remove("open");
-    cartPanel.classList.remove("open");
+  overlay.classList.remove("open");
+  cartPanel.classList.remove("open");
 }
 
 cartButton.addEventListener("click", openCart);
@@ -94,82 +93,84 @@ cartButton.addEventListener("click", openCart);
 document.querySelector(".close-cart").addEventListener("click", closeCart);
 overlay.addEventListener("click", closeCart);
 
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-        closeCart();
-    }
+button.addEventListener("click", () => {
+  addToCart(product.id);
+
+  // Give visual feedback to the user
+  button.textContent = "Added!";
+  button.disabled = true;
+
+  setTimeout(() => {
+    button.textContent = "Add to cart";
+    button.disabled = false;
+  }, 1000);
 });
 
 // Cart operations
 function addToCart(productId) {
-    const existingItem = cart.find(item => item.id === productId);
+  const existingItem = cart.find((item) => item.id === productId);
 
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            id: productId,
-            quantity: 1
-        });
-    }
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    cart.push({
+      id: productId,
+      quantity: 1,
+    });
+  }
 
-    updateCart();
+  updateCart();
 }
 
 function changeQuantity(productId, amount) {
-    const item = cart.find(item => item.id === productId);
+  const item = cart.find((item) => item.id === productId);
 
-    if (!item) return;
+  if (!item) return;
 
-    item.quantity += amount;
+  item.quantity += amount;
 
-    if (item.quantity <= 0) {
-        cart = cart.filter(item => item.id !== productId);
-    }
+  if (item.quantity <= 0) {
+    cart = cart.filter((item) => item.id !== productId);
+  }
 
-    updateCart();
+  updateCart();
 }
 
 function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCart();
+  cart = cart.filter((item) => item.id !== productId);
+  updateCart();
 }
 
 // Refresh cart display and save data
 function updateCart() {
-    localStorage.setItem("minishop-cart", JSON.stringify(cart));
+  localStorage.setItem("minishop-cart", JSON.stringify(cart));
 
-    const totalItems = cart.reduce(
-        (total, item) => total + item.quantity,
-        0
-    );
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
-    cartCount.textContent = totalItems;
+  cartCount.textContent = totalItems;
 
-    cartItemsContainer.innerHTML = "";
+  cartItemsContainer.innerHTML = "";
 
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = `
             <p class="cart-empty">Your cart is empty.</p>
         `;
-    }
+  }
 
-    let totalPrice = 0;
+  let totalPrice = 0;
 
-    cart.forEach(item => {
-        const product = products.find(
-            product => product.id === item.id
-        );
+  cart.forEach((item) => {
+    const product = products.find((product) => product.id === item.id);
 
-        if (!product) return;
+    if (!product) return;
 
-        const itemTotal = product.price * item.quantity;
-        totalPrice += itemTotal;
+    const itemTotal = product.price * item.quantity;
+    totalPrice += itemTotal;
 
-        const cartItem = document.createElement("div");
-        cartItem.className = "cart-item";
+    const cartItem = document.createElement("div");
+    cartItem.className = "cart-item";
 
-        cartItem.innerHTML = `
+    cartItem.innerHTML = `
             <div>
                 <h3>${product.name}</h3>
                 <p>$${product.price.toFixed(2)} each</p>
@@ -187,39 +188,36 @@ function updateCart() {
             </div>
         `;
 
-        cartItem.querySelector(".decrease").addEventListener(
-            "click",
-            () => changeQuantity(product.id, -1)
-        );
+    cartItem
+      .querySelector(".decrease")
+      .addEventListener("click", () => changeQuantity(product.id, -1));
 
-        cartItem.querySelector(".increase").addEventListener(
-            "click",
-            () => changeQuantity(product.id, 1)
-        );
+    cartItem
+      .querySelector(".increase")
+      .addEventListener("click", () => changeQuantity(product.id, 1));
 
-        cartItem.querySelector(".remove-item").addEventListener(
-            "click",
-            () => removeFromCart(product.id)
-        );
+    cartItem
+      .querySelector(".remove-item")
+      .addEventListener("click", () => removeFromCart(product.id));
 
-        cartItemsContainer.appendChild(cartItem);
-    });
+    cartItemsContainer.appendChild(cartItem);
+  });
 
-    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+  totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
 }
 
 // Simple checkout demo
 document.querySelector(".checkout-btn").addEventListener("click", () => {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
 
-    alert("Thanks for shopping at MiniShop!");
+  alert("Thanks for shopping at MiniShop!");
 
-    cart = [];
-    updateCart();
-    closeCart();
+  cart = [];
+  updateCart();
+  closeCart();
 });
 
 // Load saved cart when the page opens
@@ -229,13 +227,11 @@ const searchInput = document.getElementById("product-search");
 const productCards = document.querySelectorAll(".product-card");
 
 searchInput.addEventListener("input", () => {
-    const searchValue = searchInput.value.toLowerCase().trim();
+  const searchValue = searchInput.value.toLowerCase().trim();
 
-    productCards.forEach(card => {
-        const productName = card.querySelector("h3").textContent.toLowerCase();
+  productCards.forEach((card) => {
+    const productName = card.querySelector("h3").textContent.toLowerCase();
 
-        card.style.display = productName.includes(searchValue)
-            ? "block"
-            : "none";
-    });
+    card.style.display = productName.includes(searchValue) ? "block" : "none";
+  });
 });
