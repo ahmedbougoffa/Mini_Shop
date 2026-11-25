@@ -60,6 +60,7 @@ const cartItemsContainer = document.querySelector(".cart-items");
 const totalPriceElement = document.querySelector(".total-price");
 
 // Add product prices and buttons
+
 document.querySelectorAll(".product-card").forEach((card, index) => {
   const product = products[index];
 
@@ -70,8 +71,17 @@ document.querySelectorAll(".product-card").forEach((card, index) => {
   button.className = "add-cart-btn";
   button.textContent = "Add to cart";
 
+  // TASK 5: Add product to cart
   button.addEventListener("click", () => {
     addToCart(product.id);
+
+    button.textContent = "Added!";
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.textContent = "Add to cart";
+      button.disabled = false;
+    }, 1000);
   });
 
   card.querySelector(".product-info").appendChild(button);
@@ -92,19 +102,6 @@ cartButton.addEventListener("click", openCart);
 
 document.querySelector(".close-cart").addEventListener("click", closeCart);
 overlay.addEventListener("click", closeCart);
-
-button.addEventListener("click", () => {
-  addToCart(product.id);
-
-  // Give visual feedback to the user
-  button.textContent = "Added!";
-  button.disabled = true;
-
-  setTimeout(() => {
-    button.textContent = "Add to cart";
-    button.disabled = false;
-  }, 1000);
-});
 
 // Cart operations
 function addToCart(productId) {
