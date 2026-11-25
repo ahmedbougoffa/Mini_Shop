@@ -224,18 +224,3 @@ document.querySelector(".checkout-btn").addEventListener("click", () => {
 
 // Load saved cart when the page opens
 updateCart();
-// Product search
-const searchInput = document.getElementById("product-search");
-const productCards = document.querySelectorAll(".product-card");
-
-searchInput.addEventListener("input", () => {
-    const searchValue = searchInput.value.toLowerCase().trim();
-
-    productCards.forEach(card => {
-        const productName = card.querySelector("h3").textContent.toLowerCase();
-
-        card.style.display = productName.includes(searchValue)
-            ? "block"
-            : "none";
-    });
-});
