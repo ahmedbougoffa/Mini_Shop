@@ -206,9 +206,16 @@ function updateCart() {
 
 // Simple checkout demo
 document.querySelector(".checkout-btn").addEventListener("click", () => {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
+    if (cart.length === 0) {
+    cartItemsContainer.innerHTML = `
+            <p class="cart-empty">Your cart is empty.</p>
+            <button class="continue-btn">Continue shopping</button>
+        `;
+
+    cartItemsContainer
+      .querySelector(".continue-btn")
+      .addEventListener("click", closeCart);
+  
   }
 
   alert("Thanks for shopping at MiniShop!");

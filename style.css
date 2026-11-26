@@ -652,3 +652,18 @@ footer {
 .checkout-btn:hover {
   background: #d5ff72;
 }
+/* TASK 11: EMPTY CART MESSAGE */
+
+.continue-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: var(--accent);
+  color: #171812;
+  font-weight: 700;
+}
+
+.continue-btn:hover {
+  background: #d5ff72;
+}
