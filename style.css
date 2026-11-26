@@ -461,3 +461,23 @@ footer {
   cursor: not-allowed;
   transform: none;
 }
+/* Cart notification */
+.cart-toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent, #c4f05b);
+    color: #10110f;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.cart-toast.show {
+    opacity: 1;
+}
