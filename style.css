@@ -461,3 +461,23 @@ footer {
   cursor: not-allowed;
   transform: none;
 }
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #c4f05b;
+    color: #10110f;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
+
+.back-to-top.show {
+    display: block;
+}

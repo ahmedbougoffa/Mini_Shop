@@ -232,3 +232,45 @@ searchInput.addEventListener("input", () => {
     card.style.display = productName.includes(searchValue) ? "block" : "none";
   });
 });
+// Cart notification
+const cartToast = document.createElement("div");
+cartToast.className = "cart-toast";
+cartToast.textContent = "✓ Added to cart!";
+document.body.appendChild(cartToast);
+
+let toastTimeout;
+
+document.addEventListener("click", event => {
+    if (event.target.closest(".add-cart-btn")) {
+        cartToast.classList.add("show");
+
+        clearTimeout(toastTimeout);
+
+        toastTimeout = setTimeout(() => {
+            cartToast.classList.remove("show");
+        }, 2000);
+    }
+});
+// Back to top button
+const backToTop = document.createElement("button");
+
+backToTop.className = "back-to-top";
+backToTop.textContent = "↑";
+backToTop.title = "Back to top";
+
+document.body.appendChild(backToTop);
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTop.classList.add("show");
+    } else {
+        backToTop.classList.remove("show");
+    }
+});
+
+backToTop.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
