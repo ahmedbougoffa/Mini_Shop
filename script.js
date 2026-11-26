@@ -145,6 +145,7 @@ function updateCart() {
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
   cartCount.textContent = totalItems;
+  cartCount.style.display = totalItems === 0 ? "none" : "inline";
 
   cartItemsContainer.innerHTML = "";
 
