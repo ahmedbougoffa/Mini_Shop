@@ -252,3 +252,24 @@ document.addEventListener("click", event => {
         }, 2000);
     }
 });
+// Product sorting by price
+const sortSelect = document.getElementById("product-sort");
+const productGrid = document.querySelector(".product-grid");
+const originalOrder = Array.from(productGrid.children);
+
+function getPrice(card) {
+  const priceText = card.querySelector(".product-price").textContent;
+  return parseFloat(priceText.replace("$", ""));
+}
+
+sortSelect.addEventListener("change", () => {
+  const cards = [...originalOrder];
+
+  if (sortSelect.value === "asc") {
+    cards.sort((a, b) => getPrice(a) - getPrice(b));
+  } else if (sortSelect.value === "desc") {
+    cards.sort((a, b) => getPrice(b) - getPrice(a));
+  }
+
+  cards.forEach((card) => productGrid.appendChild(card));
+});
